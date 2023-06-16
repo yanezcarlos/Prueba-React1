@@ -1,4 +1,3 @@
-// import res from "express/lib/response";
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -11,7 +10,6 @@ const MiApi = () => {
   const getData = async () => {
     const res = await fetch("https://api.victorsanmartin.com/feriados/en.json");
     const data = await res.json();
-    // console.log(data.data[0].title);
     setTodos(data.data);
   };
 
@@ -19,10 +17,9 @@ const MiApi = () => {
     getData();
   }, []);
 
-  //   const filterTodos = todos.filter((item) => true);
   const filterTodos = todos.filter(
     (todo) =>
-      todo.date.toLowerCase().includes(search.toLowerCase()) ||
+      todo.date.includes(search) ||
       todo.title.toLowerCase().includes(search.toLowerCase()) ||
       todo.extra.toLowerCase().includes(search.toLowerCase())
   );
@@ -30,7 +27,7 @@ const MiApi = () => {
   return (
     <div>
       <input
-      className="input"
+        className="input"
         type="text"
         placeholder="Buscar..."
         onChange={(e) => setSearch(e.target.value)}
