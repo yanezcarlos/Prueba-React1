@@ -1,14 +1,18 @@
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
+import Search from "../Search/Search";
+import Table from "../Table/Table";
 import "./MiApi.css";
 
 const MiApi = () => {
   const [todos, setTodos] = useState([]);
+  // const [resultTodos, setResultTodos] = useState([]);
   const [search, setSearch] = useState("");
 
   const getData = async () => {
     const res = await fetch("https://api.victorsanmartin.com/feriados/en.json");
+    // console.log(res);
     const data = await res.json();
     setTodos(data.data);
   };
@@ -26,15 +30,11 @@ const MiApi = () => {
 
   return (
     <div>
-      <input
-        className="input"
-        type="text"
-        placeholder="Buscar..."
-        onChange={(e) => setSearch(e.target.value)}
-        value={search}
-      />
+      <Search value={search} onChange={(e) => setSearch(e.target.value)} />
 
-      <table>
+      <Table filterTodos={filterTodos} />
+
+      {/* <table>
         <thead>
           <tr>
             <th>Fecha</th>
@@ -51,7 +51,7 @@ const MiApi = () => {
             </tr>
           ))}
         </tbody>
-      </table>
+      </table> */}
     </div>
   );
 };
